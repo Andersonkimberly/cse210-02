@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from game.card import Card
+=======
+from game.card import Die
+>>>>>>> 79c99e8d61d71ea864994f35efe0c6dd397d8a5c
 
 
 class Director:
@@ -21,8 +25,13 @@ class Director:
         """
         self.card = []
         self.is_playing = True
+<<<<<<< HEAD
         self.score = 0
         self.total_score = 300
+=======
+        self.score = 300
+        self.total_score = 0
+>>>>>>> 79c99e8d61d71ea864994f35efe0c6dd397d8a5c
 
         self.card = Card()
 
@@ -36,7 +45,6 @@ class Director:
             self.get_inputs()
             self.do_updates()
             self.do_outputs()
-
     def get_inputs(self):
         """Ask the user if they want to roll.
 
@@ -62,7 +70,7 @@ class Director:
         self.score = 0
         for i in range(len(self.dice)):
             die = self.dice[i]
-            die.roll()
+            card.draw()
             self.score += die.points 
         self.total_score += self.score
 
