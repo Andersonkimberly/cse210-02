@@ -1,4 +1,4 @@
-from game.die import Die
+from game.card import Card
 
 
 class Director:
@@ -19,14 +19,12 @@ class Director:
         Args:
             self (Director): an instance of Director.
         """
-        self.dice = []
+        self.card = []
         self.is_playing = True
         self.score = 0
-        self.total_score = 0
+        self.total_score = 300
 
-        for i in range(5):
-            die = Die()
-            self.dice.append(die)
+        self.card = Card()
 
     def start_game(self):
         """Starts the game by running the main game loop.
@@ -45,8 +43,8 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
-        roll_dice = input("Roll dice? [y/n] ")
-        self.is_playing = (roll_dice == "y")
+        print(f"The card is: {self.card}")
+        player_guess = input("Higher or lower? [h/l] ")
        
     def do_updates(self):
         """Updates the player's score.
@@ -54,6 +52,11 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
+        # display next card
+        # compare cards
+        # calculate score
+        next_card = Card()
+        
         if not self.is_playing:
             return 
         self.score = 0
@@ -69,6 +72,9 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
+        # output score
+        # output play again
+        
         if not self.is_playing:
             return
         
