@@ -1,4 +1,4 @@
-from game.die import Die
+from game.card import Die
 
 
 class Director:
@@ -21,7 +21,7 @@ class Director:
         """
         self.dice = []
         self.is_playing = True
-        self.score = 0
+        self.score = 300
         self.total_score = 0
 
         for i in range(5):
@@ -38,7 +38,6 @@ class Director:
             self.get_inputs()
             self.do_updates()
             self.do_outputs()
-
     def get_inputs(self):
         """Ask the user if they want to roll.
 
@@ -59,7 +58,7 @@ class Director:
         self.score = 0
         for i in range(len(self.dice)):
             die = self.dice[i]
-            die.roll()
+            card.draw()
             self.score += die.points 
         self.total_score += self.score
 
