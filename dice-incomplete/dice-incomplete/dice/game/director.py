@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 from game.card import Card
-=======
-from game.card import Die
->>>>>>> 79c99e8d61d71ea864994f35efe0c6dd397d8a5c
 
 
 class Director:
@@ -11,10 +7,11 @@ class Director:
     The responsibility of a Director is to control the sequence of play.
 
     Attributes:
-        dice (List[Die]): A list of Die instances.
+        card ([Card]): One instance of the Card class.
+        second_card ([Card]): One instance of the Card class.
         is_playing (boolean): Whether or not the game is being played.
-        score (int): The score for one round of play.
         total_score (int): The score for the entire game.
+        player_guess (string): Players input guessing the next cards value.
     """
 
     def __init__(self):
@@ -23,17 +20,14 @@ class Director:
         Args:
             self (Director): an instance of Director.
         """
-        self.card = []
+        self.card = 0
+        self.second_card = 0
         self.is_playing = True
-<<<<<<< HEAD
-        self.score = 0
         self.total_score = 300
-=======
-        self.score = 300
-        self.total_score = 0
->>>>>>> 79c99e8d61d71ea864994f35efe0c6dd397d8a5c
+        self.player_guess = ""
 
         self.card = Card()
+        self.second_card = Card()
 
     def start_game(self):
         """Starts the game by running the main game loop.
@@ -45,52 +39,55 @@ class Director:
             self.get_inputs()
             self.do_updates()
             self.do_outputs()
+
     def get_inputs(self):
-        """Ask the user if they want to roll.
+        """Ask the user to guess the value of the next card.
 
         Args:
             self (Director): An instance of Director.
         """
-        print(f"The card is: {self.card}")
-        player_guess = input("Higher or lower? [h/l] ")
+        if (self.card.value == 0):
+            self.card.draw()
+
+        print(f"The card is: {self.card.value}")
+        self.player_guess = input("Higher or lower? [h/l] ")
+        self.second_card.draw()
+        print(f"The card is: {self.second_card.value}")        
        
     def do_updates(self):
-        """Updates the player's score.
+        """Check the players input, then updates the player's score.
 
         Args:
             self (Director): An instance of Director.
         """
-        # display next card
-        # compare cards
-        # calculate score
-        next_card = Card()
-        
-        if not self.is_playing:
-            return 
-        self.score = 0
-        for i in range(len(self.dice)):
-            die = self.dice[i]
-            card.draw()
-            self.score += die.points 
-        self.total_score += self.score
+        if (self.player_guess.lower() == "h"):
+            if (self.card.value < self.second_card.value):
+                self.total_score += 100
+            else:
+                self.total_score -= 75
+        elif (self.player_guess.lower() == "l"):
+            if (self.card.value > self.second_card.value):
+                self.total_score += 100
+            else:
+                self.total_score -= 75
+
+        self.card.value = self.second_card.value
+
+        if self.total_score <= 0:
+            self.is_playing = False
+            print("Game Over")
 
     def do_outputs(self):
-        """Displays the dice and the score. Also asks the player if they want to roll again. 
+        """Displays the new score and ask the player if they want to play again.
 
         Args:
             self (Director): An instance of Director.
-        """
-        # output score
-        # output play again
-        
+        """        
         if not self.is_playing:
             return
-        
-        values = ""
-        for i in range(len(self.dice)):
-            die = self.dice[i]
-            values += f"{die.value} "
-
-        print(f"You rolled: {values}")
-        print(f"Your score is: {self.total_score}\n")
-        self.is_playing = (self.score > 0)
+               
+        print(f"Your score is: {self.total_score}")
+        play_again = input("Play again? [y/n] ")
+        print("\n")
+        if play_again == "n":
+            self.is_playing = False
